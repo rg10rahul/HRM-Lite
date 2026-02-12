@@ -15,8 +15,12 @@ DATABASE_URL = f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB
 
 engine = create_engine(
     DATABASE_URL,
-    pool_recycle=3600,
+    pool_size=10,
+    max_overflow=20,
+    pool_recycle=1800,  
+    pool_pre_ping=True, 
     connect_args={
+        "connect_timeout": 60,
         "ssl": {
             "ssl_disabled": True 
         }
